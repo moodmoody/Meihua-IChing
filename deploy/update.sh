@@ -47,8 +47,12 @@ rsync -a --delete "$SRC/dist/" "$APP/dist/"
 
 echo "== 3. 依赖（package.json 变化时才装）=="
 cd "$APP/server"
-if [ ! -d node_modules ] || [ "$SRC/server/package.json" -nt node_modules ]; then
-  as_owner npm install --omit=dev --no-audit --no-fund
+HASH="$(sha256sum package.json | cut -d' ' -f1)"
+STAMP="node_modules/.meihua-pkg-hash"
+if [ ! -d node_modules ] || [ ! -f "$STAMP" ] || [ "$(cat "$STAMP" 2>/dev/null)" != "$HASH" ]; then
+  echo "    安装依赖（root 执行，稍后 chown 归还）"
+  npm install --omit=dev --no-audit --no-fund
+  echo "$HASH" > "$STAMP"
 else
   echo "    package.json 未变，跳过"
 fi
