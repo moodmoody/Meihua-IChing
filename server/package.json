@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "梅花易数 · 复刻后端 (API contract compatible with meihua frontend)",
+  "description": "梅花易数 · 后端 (API contract compatible with the bundled frontend)",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js"

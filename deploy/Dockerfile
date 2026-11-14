@@ -1,4 +1,4 @@
-# 梅花易数 · 复刻版 —— 生产镜像
+# 梅花易数 —— 生产镜像
 # build context 必须是仓库根（含 dist/ 与 server/）
 FROM node:22-alpine AS deps
 WORKDIR /app/server

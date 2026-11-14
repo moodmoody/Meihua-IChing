@@ -1,4 +1,4 @@
-// 梅花易数 · 复刻后端（与 meihua 前端 /api/v1 契约对齐）
+// 梅花易数 · 后端（与前端 /api/v1 契约对齐）
 // 运行：node src/server.js
 import http from "node:http";
 import { readFile, stat } from "node:fs/promises";
@@ -283,7 +283,7 @@ const server = http.createServer(async (req, res) => {
   const p = url.pathname;
 
   try {
-    // —— 鉴权：复刻版不设门槛，前端读到 required:false 即跳过登录 ——
+    // —— 鉴权：不设门槛，前端读到 required:false 即跳过登录 ——
     if (p === "/api/v1/auth/config" && req.method === "GET") {
       return json(res, 200, { required: false, provider: null, login_path: null, callback: null });
     }
@@ -339,7 +339,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { text });
     }
 
-    // —— 记录同步（复刻版不做跨端，回执即成功，前端不再重试）——
+    // —— 记录同步（不做跨端，回执即成功，前端不再重试）——
     if (p === "/api/v1/sync/readings" && req.method === "PUT") {
       await readBody(req);
       return json(res, 200, { ok: true, records: [], tombstones: [] });
