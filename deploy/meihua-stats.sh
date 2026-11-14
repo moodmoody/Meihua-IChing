@@ -47,8 +47,8 @@ sed -E 's/.*" "([^"]*)"$/\1/' "$SRC" | sed -E \
 
 echo
 echo "【最近 5 次解卦】"
-grep 'POST /api/v1/readings/stream.* 200 ' "$SRC" | tail -5 | \
-  awk '{print $1, $4}' | sed 's/\[//' | awk '{printf "  %-18s %s\n", $1, $2}'
+{ grep 'POST /api/v1/readings/stream.* 200 ' "$SRC" | tail -5 | \
+  awk '{print $1, $4}' | sed 's/\[//' | awk '{printf "  %-18s %s\n", $1, $2}'; } || true
 
 [ "$DAYS" -gt 1 ] && rm -f "$SRC" || true
 echo
