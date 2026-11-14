@@ -147,3 +147,11 @@ event: error      data: {message}
 | 提示「请先登录」 | `/api/v1/auth/config` 没返回 `required:false` |
 | 笔画查不到 | 生僻字不在 cnchar 字库，前端会提示手填 |
 | 记录「未完成」 | 上一轮流被中断，点「重新解读」即可 |
+
+## 8 许可
+
+本项目**后端代码**（`server/`、`deploy/`、文档）以 [Apache License 2.0](LICENSE) 授权，见 `LICENSE` 与 `NOTICE`。
+
+**前端资源 `dist/` 不在该授权范围内。** 它镜像自 `https://meihua.42thinks.com/`，著作权归原作者所有；在此仅作为技术存档与研究用途保留，不随本仓库的 Apache-2.0 授权一并提供。如需在其他项目中使用 `dist/`，请自行联系原站作者取得许可。`dist/fonts/` 中的字体分片（Archivo、ZCOOL QingKe HuangYou）适用各自的字体许可。
+
+引用、转载或二次分发前，请确认你已理解上述边界。

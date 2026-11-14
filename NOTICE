@@ -1,0 +1,31 @@
+梅花易数复刻版 (Meihua-IChing)
+Copyright 2026 moodmoody
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+---
+
+范围说明 / Scope
+
+上述授权适用于本仓库中的后端实现与部署脚本，即：
+
+  server/    Node.js 后端（起卦算法、历法、提示词、LLM 客户端、SSE 服务）
+  deploy/    部署配置（systemd、nginx、Docker、Caddy、安装脚本）
+  *.md       文档
+
+不适用于：
+
+  dist/      自 https://meihua.42thinks.com/ 镜像的前端资源，
+             著作权归原站作者所有，此处仅作技术存档与研究用途。
+  dist/fonts/ 第三方字体分片（Archivo、ZCOOL QingKe HuangYou），
+             适用各自的字体许可条款。
