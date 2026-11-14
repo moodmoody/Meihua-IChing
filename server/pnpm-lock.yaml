@@ -1,0 +1,37 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      cnchar:
+        specifier: ^3.2.6
+        version: 3.2.6
+      lunar-javascript:
+        specifier: ^1.7.3
+        version: 1.7.8
+
+packages:
+
+  cnchar-types@3.2.6:
+    resolution: {integrity: sha512-LGU2ss7KcsI1Psme73+jffUX0ZDuChr6P9Rj2j8lynJHStklNpoC/+kheKSSUcXQ1u2KNvZt1Shs/5efcihHkg==}
+
+  cnchar@3.2.6:
+    resolution: {integrity: sha512-7Up5ALAkoOTAHlRMN0B7VgrrRsp6+trgFV0M7xSsZ0TwnnBfW68gXClcE9Oz8sTOEu+zqGOZjBhlHNzPIBckDA==}
+
+  lunar-javascript@1.7.8:
+    resolution: {integrity: sha512-T79Lq2t5zjPu7nnkuUn3xFqIMIB5LCVSn6uJXQLvgWEqUGdE4KQXqQOVBaoYsVHY/8MIwFd7ol9dJ5bP2ItXUQ==}
+
+snapshots:
+
+  cnchar-types@3.2.6: {}
+
+  cnchar@3.2.6:
+    dependencies:
+      cnchar-types: 3.2.6
+
+  lunar-javascript@1.7.8: {}

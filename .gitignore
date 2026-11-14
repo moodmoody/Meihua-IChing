@@ -1,0 +1,36 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 环境变量（含 API key）
+.env
+.env.local
+.env.*.local
+
+# 日志
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# 测试/调试脚本（保留写法，不入库）
+server/_*
+_autotest*.mjs
+_probe_dom.mjs
+
+# 打包产物
+*.tar.gz
+*.zip
+
+# 部署时生成的临时脚本
+deploy/_remote_*.sh
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*~

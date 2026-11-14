@@ -1,0 +1,18 @@
+{
+  "name": "meihua-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "梅花易数 · 复刻后端 (API contract compatible with meihua frontend)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "cnchar": "^3.2.6",
+    "lunar-javascript": "^1.7.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

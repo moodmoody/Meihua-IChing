@@ -1,0 +1,40 @@
+services:
+  meihua:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: meihua-clone:latest
+    container_name: meihua
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      PORT: "8787"
+    expose:
+      - "8787"
+    # 仅本机可达；由 caddy 反代，不直接对外
+    ports:
+      - "127.0.0.1:8787:8787"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: meihua-caddy
+    restart: unless-stopped
+    depends_on:
+      - meihua
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

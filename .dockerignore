@@ -1,0 +1,15 @@
+node_modules
+.git
+.env
+*.log
+server/_*
+server/_probe*.mjs
+server/_test_*.mjs
+server/_mock_llm.mjs
+server/_out.log
+server/_err.log
+server/_body.json
+server/_mock.log
+server/_mockerr.log
+fontlist.txt
+*.tar.gz

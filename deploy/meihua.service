@@ -1,0 +1,33 @@
+[Unit]
+Description=Meihua Yishu (replica) service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=meihua
+Group=meihua
+WorkingDirectory=/opt/meihua
+EnvironmentFile=/opt/meihua/.env
+ExecStart=/usr/bin/node /opt/meihua/server/src/server.js
+Restart=always
+RestartSec=3
+
+# 加固
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/meihua
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=512M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=meihua
+
+[Install]
+WantedBy=multi-user.target

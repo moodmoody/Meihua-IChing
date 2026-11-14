@@ -1,0 +1,27 @@
+# Caddy 反代 + 自动 HTTPS
+# 把 meihua.example.com 换成你的域名；DNS 先解析到这台机器。
+{
+	email admin@example.com
+}
+
+meihua.example.com {
+	encode zstd gzip
+
+	# SSE 必须关闭缓冲，否则解卦不吐字
+	reverse_proxy meihua:8787 {
+		flush_interval -1
+		header_up X-Real-IP {remote_host}
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	log {
+		output file /data/access.log {
+			roll_size 10MiB
+			roll_keep 3
+		}
+	}
+}
