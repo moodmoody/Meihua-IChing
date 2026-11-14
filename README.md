@@ -80,6 +80,34 @@ PORT=8787 node src/server.js
 - Caddy：`flush_interval -1`
 - Nginx：`proxy_buffering off;`
 
+### 3.4 从 Git 更新（推荐）
+
+生产环境用 Deploy Key 克隆到 `/opt/meihua-src`，`/opt/meihua` 是运行目录。更新走一条命令：
+
+```bash
+# 服务器上
+sudo bash /opt/meihua-src/deploy/update.sh              # 跟 origin/main
+sudo bash /opt/meihua-src/deploy/update.sh v1.0.0       # 切到指定标签
+```
+
+脚本做四件事：`git reset --hard` → `rsync` 同步 `server/src` 与 `dist`（**保留 `.env` 和 `node_modules`**）→ 按需 `npm install` → `systemctl restart meihua`，最后跑一次 health 自检。
+
+Deploy Key 配置（服务器端，一次性）：
+
+```bash
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+# 把私钥放到 ~/.ssh/meihua_deploy，chmod 600
+ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
+cat >> ~/.ssh/config <<'EOF'
+Host github.com
+    HostName ssh.github.com
+    Port 443
+    User git
+    IdentityFile ~/.ssh/meihua_deploy
+    IdentitiesOnly yes
+EOF
+```
+
 ## 4 配置
 
 | 变量 | 默认 | 说明 |
