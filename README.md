@@ -178,6 +178,38 @@ event: error      data: {message}
 | 笔画查不到 | 生僻字不在 cnchar 字库，前端会提示手填 |
 | 记录「未完成」 | 上一轮流被中断，点「重新解读」即可 |
 
+### 7.1 扫描器拦截
+
+线上每天有数百次 `.env` / `wp-admin` / `.git` 探测。已经在 nginx 层拦掉，命中直接返回 `444`（断连，不回响应）。
+
+两个文件：
+
+| 文件 | 位置 | 作用 |
+|---|---|---|
+| `deploy/nginx-guard.conf` | `/etc/nginx/conf.d/meihua-guard.conf` | UA 特征表，映射成 `$meihua_bad_ua` |
+| `deploy/nginx-block.conf` | `/etc/nginx/snippets/meihua-block.conf` | 路径黑名单 + UA 判定 |
+
+在 vhost 的 `server` 块里 `include` 第二个文件即可：
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name meihua.guohua.cloud;
+    include /etc/nginx/snippets/meihua-block.conf;
+    ...
+}
+```
+
+注意：`access_log` 不能写在 server 级的 `if` 块里，nginx 会拒绝加载。所以 UA 拦截的 444 仍会记一行日志，路径拦截的不记。
+
+**验证：**
+
+```bash
+curl -o /dev/null -w "%{http_code}\n" https://meihua.guohua.cloud/.env          # 000
+curl -o /dev/null -w "%{http_code}\n" -A sqlmap/1.7 https://meihua.guohua.cloud/  # 000
+curl -o /dev/null -w "%{http_code}\n" https://meihua.guohua.cloud/               # 200
+```
+
 ## 8 许可
 
 本项目**后端代码**（`server/`、`deploy/`、文档）以 [Apache License 2.0](LICENSE) 授权，见 `LICENSE` 与 `NOTICE`。
